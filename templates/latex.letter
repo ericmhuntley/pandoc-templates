@@ -131,6 +131,8 @@ $endif$
 
 $if(date)$
 \date{$date$}
+$else$
+\date{\printdate{\VCDateISO}}
 $endif$
 
 \address{$for(return-address)$$return-address$$sep$\\$endfor$}
@@ -154,7 +156,7 @@ $endif$
 
 \begin{letter}{$for(address)$$address$$sep$\\$endfor$}
 
-  \opening{$opening$}
+\opening{$opening$}
 
 $body$
 
