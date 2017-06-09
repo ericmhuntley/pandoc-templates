@@ -22,7 +22,6 @@
 $if(mathfont)$
   \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
 $endif$
-% use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{
   \usepackage[$for(microtypeoptions)$$microtypeoptions$$sep$,$endfor$]{microtype}
@@ -30,9 +29,8 @@ $endif$
 }{}
 \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 
-\PassOptionsToPackage{usenames,dvipsnames}{color}
+\usepackage[usenames,dvipsnames]{color}
 \usepackage[margin=1.25in]{geometry}
-
 
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
@@ -76,9 +74,9 @@ $endif$
 %% }
 %% $endif$
 
-%% \setlength{\emergencystretch}{3em}  % prevent overfull lines
-%% \providecommand{\tightlist}{%
-%%   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 %% $if(numbersections)$
 %% \setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
@@ -89,6 +87,8 @@ $endif$
 \RequirePackage[backend=biber, babel=hyphen, bibencoding=inputenc, isbn=false, uniquename=false]{biblatex}
 \addbibresource{$bibliography$}
 
+\definecolor{ukblue}{cmyk}{1,0.75,0,0}
+
 \usepackage[unicode=true]{hyperref}
 \hypersetup{
             pdftitle={$title$},
@@ -98,9 +98,9 @@ $endif$
             $endif$
             pagebackref=true,
             colorlinks=true,
-            linkcolor=$if(color)$$color$$else$Red$endif$,
-            citecolor=$if(color)$$color$$else$Red$endif$,
-            urlcolor=$if(color)$$color$$else$Red$endif$,
+            linkcolor=$if(color)$$color$$else$ukblue$endif$,
+            citecolor=$if(color)$$color$$else$ukblue$endif$,
+            urlcolor=$if(color)$$color$$else$ukblue$endif$,
             pdfborder={0 0 0},
             plainpages=false,
             pdfpagelabels,
