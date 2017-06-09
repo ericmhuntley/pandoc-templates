@@ -1,26 +1,24 @@
 \documentclass[11pt,article,oneside,letter]{memoir}
-\RequirePackage{memoir-article-styles}
-\RequirePackage{wrapfig}
-\RequirePackage{rotating}
-\RequirePackage[american]{babel}
-\RequirePackage[babel]{csquotes}
-\RequirePackage{soul}
-\RequirePackage{etoolbox}
-\input{vc}
-
+\usepackage{memoir-article-styles}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[american]{babel}
+\usepackage[babel]{csquotes}
+\usepackage{soul}
+\usepackage{etoolbox}
 \usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
-%% \usepackage[T1]{fontenc}
-%% \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{fontspec}
 \usepackage[american, cleanlook]{isodate}
+\usepackage[toc,eqno,enum]{tabfigures} %% use tabular figures in tables, toc, equation
+\usepackage{listings}
+\input{vc}
+
 \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \setmainfont[Mapping=tex-text,Numbers=OldStyle]{Minion Pro}
-%% \setsansfont[Mapping=tex-text]{Minion Pro} 
-\setmonofont[Mapping=tex-text,Scale=0.8]{Courier}
-\RequirePackage[toc,eqno,enum]{tabfigures} %% use tabular figures in tables, toc, equations
-
+\setmonofont[Mapping=tex-text,Scale=0.8]{DejaVu Sans Mono}
 
   
 %% $if(mathfont)$
@@ -35,120 +33,73 @@
 %% }{}
 %% \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 
-%% $if(verbatim-in-note)$
-%% \usepackage{fancyvrb}
-%% $endif$
-
 \PassOptionsToPackage{usenames,dvipsnames}{color}
 
-%% $if(verbatim-in-note)$
-%% \VerbatimFootnotes % allows verbatim text in footnotes
-%% $endif$
 
-%% $if(geometry)$
-%% \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
-%% $endif$
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
 
-\usepackage{listings}
 
-%% $if(lhs)$
-%% \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
-%% $endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
 
-%% $if(highlighting-macros)$
-%% $highlighting-macros$
-%% $endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
 
-%% $if(tables)$
-%% \usepackage{longtable,booktabs}
-%% % Fix footnotes in tables (requires footnote package)
-%% \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
-%% $endif$
+$if(tables)$
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+$endif$
 
-%% $if(graphics)$
-%% \usepackage{graphicx,grffile}
-%% \makeatletter
-%% \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-%% \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-%% \makeatother
-%% % Scale images if necessary, so that they will not overflow the page
-%% % margins by default, and it is still possible to overwrite the defaults
-%% % using explicit options in \includegraphics[width, height, ...]{}
-%% \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-%% $endif$
+$if(graphics)$
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+$endif$
 
-%% $if(links-as-notes)$
-%% % Make links footnotes instead of hotlinks:
-%% \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
-%% $endif$
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
 
-%% $if(strikeout)$
-%% \usepackage[normalem]{ulem}
-%% % avoid problems with \sout in headers with hyperref:
-%% \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
-%% $endif$
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
 
-%% $if(indent)$
-%% $else$
-%% \IfFileExists{parskip.sty}{%
-%% \usepackage{parskip}
-%% }{% else
-%% \setlength{\parindent}{0pt}
-%% \setlength{\parskip}{6pt plus 2pt minus 1pt}
-%% }
-%% $endif$
+$if(indent)$
+$else$
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+$endif$
 
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-%% $if(numbersections)$
-%% \setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
-%% $else$
-%% \setcounter{secnumdepth}{0}
-%% $endif$
+$if(numbersections)$
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
+$else$
+\setcounter{secnumdepth}{3}
+$endif$
 
-%% $if(subparagraph)$
-%% $else$
-%% % Redefines (sub)paragraphs to behave more like sections
-%% \ifx\paragraph\undefined\else
-%% \let\oldparagraph\paragraph
-%% \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-%% \fi
-%% \ifx\subparagraph\undefined\else
-%% \let\oldsubparagraph\subparagraph
-%% \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-%% \fi
-%% $endif$
-
-%% $if(dir)$
-%% \ifxetex
-%%   % load bidi as late as possible as it modifies e.g. graphicx
-%%   $if(latex-dir-rtl)$
-%%   \usepackage[RTLdocument]{bidi}
-%%   $else$
-%%   \usepackage{bidi}
-%%   $endif$
-%% \fi
-%% \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-%%   \TeXXeTstate=1
-%%   \newcommand{\RL}[1]{\beginR #1\endR}
-%%   \newcommand{\LR}[1]{\beginL #1\endL}
-%%   \newenvironment{RTL}{\beginR}{\endR}
-%%   \newenvironment{LTR}{\beginL}{\endL}
-%% \fi
-%% $endif$
-
-\RequirePackage[backend=biber, babel=hyphen, bibencoding=inputenc, isbn=false, uniquename=false]{biblatex} % biblatex setup
-%% \RequirePackage{natbib}
-
+\RequirePackage[backend=biber, babel=hyphen, bibencoding=inputenc, isbn=false, uniquename=false]{biblatex}
 \addbibresource{$bibliography$}
-%% \bibliography{$bibliography$}
-
-%% bibnamedash: with Minion Pro the three-emdash lines in the
-%% bibliogrpaphy end up separated from one another, which is very
-%% annoying. Replace them with a line of appropriate size and weight.
-%% \renewcommand{\bibnamedash}{\rule[3.5pt]{3em}{0.5pt}\,}
 
 \usepackage[unicode=true]{hyperref}
 \hypersetup{
@@ -168,7 +119,7 @@
             bookmarks,
             bookmarksnumbered,
             breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+%% \urlstyle{same}  % don't use monospace font for urls
 
 % set default figure placement to htbp
 \makeatletter
@@ -191,20 +142,15 @@ $endif$
 $if(author)$
 \author{$for(author)$$author$$sep$ \and $endfor$}
 \author{$for(author)$\normalsize $author.name$ \\
-  \normalsize\emph{$author.affiliation$} \vspace*{0.2in} \\
-  %% \normalsize\url{$author.email$}
-  %% \vspace*{0.2in}\\
+  \normalsize\emph{$author.affiliation$} \\
+  \footnotesize\url{$author.email$}\vspace*{0.2in}\\
   $sep$ \and $endfor$}
 $endif$
 
 \date{\vspace{-9ex}}
-%% \date{\vspace{-\baselineskip}}
-
-\renewcommand{\abstractname}{\vspace{-\baselineskip}}
 
 \begin{document}
-
-\chapterstyle{article-4}
+\chapterstyle{article}
 \pagestyle{kjhgit}
 
 $if(title)$
@@ -212,15 +158,13 @@ $if(title)$
 $endif$
 
 $if(abstract)$
-\begin{abstract}\noindent
-\emph{Abstract:} $abstract$
-\end{abstract}
+\begin{abstract}\par\noindent\emph{Abstract:} $abstract$\end{abstract}
 $endif$
 
 $for(include-before)$
 $include-before$
-
 $endfor$
+
 $if(toc)$
 {
 $if(colorlinks)$
