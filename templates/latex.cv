@@ -1,0 +1,165 @@
+\documentclass[11pt,article,oneside,letter]{memoir}
+\usepackage{memoir-article-styles}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[american]{babel}
+\usepackage[babel]{csquotes}
+\usepackage{soul}
+\usepackage{etoolbox}
+\usepackage{amssymb,amsmath}
+\usepackage{fixltx2e} % provides \textsubscript
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+\usepackage[american, cleanlook]{isodate}
+\usepackage[toc,eqno,enum]{tabfigures} %% use tabular figures in tables, toc, equation
+\usepackage{listings}
+\input{vc}
+
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\setmainfont[Mapping=tex-text,Numbers=OldStyle]{Minion Pro}
+\setmonofont[Mapping=tex-text,Scale=0.8]{DejaVu Sans Mono}
+
+\usepackage[margin=0.75in]{geometry}
+
+
+%% $if(mathfont)$
+%%   \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+%% $endif$
+%% \fi
+%% % use upquote if available, for straight quotes in verbatim environments
+%% \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+%% \IfFileExists{microtype.sty}{
+%%   \usepackage[$for(microtypeoptions)$$microtypeoptions$$sep$,$endfor$]{microtype}
+%%   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+%% }{}
+%% \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{fontawesome}
+
+\usepackage[document]{ragged2e}
+% do not hyphenate paragraphs across line breaks.
+\usepackage[none]{hyphenat}
+
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+
+% Section header styles
+\setsecheadstyle{\Large\MakeUppercase}
+\setsubsecheadstyle{\normalsize\scshape}
+\setbeforesubsecskip{0ex}
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+
+$if(graphics)$
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+$endif$
+
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+
+$if(indent)$
+$else$
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+$endif$
+
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+$if(numbersections)$
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
+$else$
+\setcounter{secnumdepth}{3}
+$endif$
+
+\RequirePackage[backend=biber, babel=hyphen, bibencoding=inputenc, isbn=false, uniquename=false]{biblatex}
+\addbibresource{$bibliography$}
+
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdftitle={$title$},
+            pdfauthor={$for(author)$$if(author.name)$$author.name$$else$$author$$endif$,\ $endfor$},
+            $if(keywords)$
+            pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
+            $endif$
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=$if(color)$$color$$else$Red$endif$,
+            citecolor=$if(color)$$color$$else$Red$endif$,
+            urlcolor=$if(color)$$color$$else$Red$endif$,
+            pdfborder={0 0 0},
+            plainpages=false,
+            pdfpagelabels,
+            bookmarks,
+            bookmarksnumbered,
+            breaklinks=true}
+%% \urlstyle{same}  % don't use monospace font for urls
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+% define line gray vertical rule to run along left side of content
+\definecolor{lightgray}{gray}{0.8}
+\newcommand\VRule{\color{lightgray}\vrule width 0.5pt}
+% define column types, incl. widths and style
+\newcolumntype{L}{>{\raggedleft}p{0.14\textwidth}}
+\newcolumntype{R}{p{0.8\textwidth}}
+\newcolumntype{C}{p{0.4\textwidth}}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+\renewcommand{\arraystretch}{1.75}
+
+\begin{document}
+\chapterstyle{article}
+\pagestyle{kjhgit-cv}
+
+\section*{\LARGE\textbf{$author$}}
+
+\begin{tabular}{L!{\VRule}C!{\VRule}C}
+  & $for(address)$$address$ $sep$\newline $endfor$
+  & \texttt{\faEnvelope\hspace{0.1in}\href{mailto:$email$}{$email$}\newline
+  \faGlobe\hspace{0.1in}\href{$web$}{$web$}\newline
+  \faTwitter\hspace{0.1in}\href{http://twitter.com/ericmhuntley}{$twitter$}\newline
+  \faGithub\hspace{0.1in}\href{http://github.com/ericmhuntley}{$github$}}\\
+  % \includegraphics[width=9pt]{media/orcid_B-W_24x24.png}\hspace{0.1in}\href{https://orcid.org/0000-0001-8497-0589}{\orcid}}
+\end{tabular}
+
+$body$
+
+\end{document}
