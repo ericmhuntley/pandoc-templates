@@ -1,4 +1,4 @@
-\documentclass[12pt,letter]{letter}
+\documentclass[11pt,letter]{letter}
 \usepackage{wrapfig}
 \usepackage{rotating}
 \usepackage[american]{babel}
@@ -9,7 +9,7 @@
 \usepackage{fixltx2e} % provides \textsubscript
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{fontspec}         
+\usepackage{fontspec}
 \usepackage[american, cleanlook]{isodate}
 \usepackage[toc,eqno,enum]{tabfigures} %% use tabular figures in tables, toc, equation
 \usepackage{listings}
@@ -30,7 +30,7 @@ $endif$
 \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 
 \usepackage[usenames,dvipsnames]{color}
-\usepackage[margin=1.25in]{geometry}
+\usepackage[margin=1in]{geometry}
 
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
@@ -39,6 +39,20 @@ $endif$
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
+
+
+\newcounter{section}
+\newcounter{subsection}[section]
+\setcounter{secnumdepth}{1}
+\makeatletter
+\newcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-0.5ex}%
+                                   {0.5ex}%
+                                   {\normalfont\normalsize\scshape}}
+\newcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-0.5ex}%
+                                     {0.5ex}%
+                                     {\normalfont\normalsize\itshape}}
 
 $if(tables)$
 \usepackage{longtable,booktabs}
