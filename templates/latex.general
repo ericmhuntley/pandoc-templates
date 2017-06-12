@@ -17,12 +17,9 @@
 \input{vc}
 
 \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-% \setmainfont[Mapping=tex-text,Numbers=OldStyle]{DIN Pro}
-\setromanfont[Mapping=tex-text]{Minion Pro}
+\setromanfont[Mapping=tex-text,Numbers=OldStyle]{Minion Pro}
 \setsansfont[Mapping=tex-text]{DIN Pro}
 \setmonofont[Mapping=tex-text,Scale=0.8]{DejaVu Sans Mono}
-
-\usepackage[margin=0.75in]{geometry}
 
 
 %% $if(mathfont)$
@@ -37,27 +34,24 @@
 %% }{}
 %% \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 
-\usepackage[usenames,dvipsnames]{color}
-\usepackage{fontawesome}
+\PassOptionsToPackage{usenames,dvipsnames}{color}
 
-\usepackage[document]{ragged2e}
-% do not hyphenate paragraphs across line breaks.
-\usepackage[none]{hyphenat}
+\usepackage[margin=1in]{geometry}
+
 
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
 $endif$
 
-% Section header styles
-
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
 
-
+$if(tables)$
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+$endif$
 
 $if(graphics)$
 \usepackage{graphicx,grffile}
@@ -130,38 +124,64 @@ $endif$
 \def\fps@figure{htbp}
 \makeatother
 
-% define line gray vertical rule to run along left side of content
-\definecolor{lightgray}{gray}{0.8}
-\newcommand\VRule{\color{lightgray}\vrule width 0.5pt}
-% define column types, incl. widths and style
-\newcolumntype{L}{>{\raggedleft}p{0.14\textwidth}}
-\newcolumntype{R}{p{0.8\textwidth}}
-\newcolumntype{C}{p{0.4\textwidth}}
-
 $for(header-includes)$
 $header-includes$
 $endfor$
 
-\renewcommand{\arraystretch}{1.75}
+$if(title)$
+\title{\LARGE\textbf{$title$}$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+
+$if(subtitle)$
+\providecommand{\subtitle}[1]{}
+\subtitle{$subtitle$}
+$endif$
+
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\author{$for(author)$\normalsize $author.name$ \\
+  \normalsize\emph{$author.affiliation$} \\
+  \footnotesize\url{$author.email$}\vspace*{0.2in}\\
+  $sep$ \and $endfor$}
+$endif$
+
+\date{\vspace{-9ex}}
 
 \begin{document}
 \chapterstyle{article}
-\pagestyle{kjhgit-cv}
+\pagestyle{kjh}
 
 \setsecheadstyle{\Large\bfseries\sffamily}
-\setsubsecheadstyle{\normalsize\bfseries\sffamily}
+\setsubsecheadstyle{\normalsize\itshape}
 \setbeforesubsecskip{0ex}
 
-\section*{\Huge\textbf{$author$}}
+$if(title)$
+\maketitle
+$endif$
 
-\begin{tabular}{L!{\VRule}C!{\VRule}C}
-  & $for(address)$$address$ $sep$\newline $endfor$
-  & \texttt{\faEnvelope\hspace{0.1in}\href{mailto:$email$}{$email$}\newline
-  \faGlobe\hspace{0.1in}\href{$web$}{$web$}\newline
-  \faTwitter\hspace{0.1in}\href{http://twitter.com/ericmhuntley}{$twitter$}\newline
-  \faGithub\hspace{0.1in}\href{http://github.com/ericmhuntley}{$github$}}\\
-  % \includegraphics[width=9pt]{media/orcid_B-W_24x24.png}\hspace{0.1in}\href{https://orcid.org/0000-0001-8497-0589}{\orcid}}
-\end{tabular}
+$if(abstract)$
+\begin{abstract}\par\noindent\emph{Abstract:} $abstract$\end{abstract}
+$endif$
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$if(toc)$
+{
+$if(colorlinks)$
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+$endif$
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+}
+$endif$
+$if(lot)$
+\listoftables
+$endif$
+$if(lof)$
+\listoffigures
+$endif$
 
 $body$
 
